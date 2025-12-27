@@ -1,0 +1,21 @@
+CHDIR C:\Users\Foster\Documents\GitHub\qBittorrent-release-5.1.4
+rmdir /s /q build
+mkdir build\release
+CHDIR build\release
+set PATH=%PATH%;D:\Users\Foster\Documents\Applications\vcpkg\downloads\tools\jom\jom-1_1_4
+
+cmake.exe ^
+  -DCMAKE_BUILD_TYPE=Release ^
+  -DVCPKG_TARGET_TRIPLET=x64-windows ^
+  -G "NMake Makefiles JOM" ^
+  -DCMAKE_TOOLCHAIN_FILE=D:\Users\Foster\Documents\Applications\vcpkg\scripts\buildsystems\vcpkg.cmake ^
+  ../..
+
+jom.exe -j2
+
+CHDIR C:\Users\Foster\Documents\GitHub\qBittorrent-release-5.1.4\build\release
+
+"D:\Users\Foster\Documents\Applications\vcpkg\installed\x64-windows\tools\qt6\bin\windeployqt.exe" ^
+  --release ^
+  --compiler-runtime ^
+  qbittorrent.exe
